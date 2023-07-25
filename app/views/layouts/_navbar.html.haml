@@ -1,7 +1,41 @@
-- if current_user
-  = current_user.username 
-  = link_to 'Account', edit_user_registration_path
-  = button_to 'Logout', destroy_user_session_path, method: :delete
-- else
-  = link_to 'Login', new_user_session_path
-  = link_to 'Register', new_user_registration_path
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  %a.navbar-brand{:href => "#"} SkillsLantern
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    - if current_user
+      %ul.navbar-nav.mr-auto
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
+          = link_to root_path, class: 'nav-link' do
+            Home
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
+          = link_to courses_path, class: 'nav-link' do
+            Courses
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
+          = link_to new_course_path, class: 'nav-link' do
+            New Course
+      .form-inline.my-2.my-lg-0
+        = form_tag(courses_path, method: :get) do
+          .input-group
+            = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+            %span.input-group-append
+              %button.btn.btn-primary.btn-sm{:type => "submit"}
+                %svg{:height => "1em", :viewbox => "0 0 512 512", :xmlns => "http://www.w3.org/2000/svg"}
+                  %path{:d => "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"}
+
+      %ul.navbar-nav.mr-right
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
+          = link_to root_path, class: 'nav-link' do
+            Another link
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %b= current_user.email
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+            = link_to edit_user_registration_path, class: "dropdown-item" do
+              %b Account settings
+            = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+              %b Sign out
+    - else
+      %ul.navbar-nav
+        %li.nav-item= link_to 'Sign Up', new_user_registration_path, class: 'nav-link'
+        %li.nav-item= link_to 'Log In', new_user_session_path, class: 'nav-link'

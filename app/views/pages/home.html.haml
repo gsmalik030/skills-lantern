@@ -1,13 +1,66 @@
-%h1.display-4
-  hello world
+.jumbotron 
+  .display-4 
+    Welcome to Skills Lantern
 
+    .p-4 
+  .form-inline.my-2.my-lg-0
+    = form_tag(courses_path, method: :get) do
+      .input-group
+        = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+        %span.input-group-append
+          %button.btn.btn-primary.btn-sm{:type => "submit"}
+            %svg{:height => "1em", :viewbox => "0 0 512 512", :xmlns => "http://www.w3.org/2000/svg"}
+              %path{:d => "M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"}
 
-= link_to privacy_policy_path do
+.card-group
+  .card.card-body
+    %h1
+      .fa.fa-graduation-cap
+    = Course.count
+    online courses
+    .row
+    Explore a variety of fresh topics
+  .card.card-body
+    %h1
 
-  Privacy Policy 
+    = Course.distinct.count(:user_id)
+    expert instructors
+    .row
+    Find the right instructor for you
+  .card.card-body
+    %h1
 
-= link_to courses_path, class: "btn btn-primary" do
-  Course 
+    = User.count
+    active learners
+    .row
+    Join the knowledge sharing community
+  .card.card-body
+    %h1
+    Lifetime access
+    .row
+    Learn on your schedule
+
+%hr
+
+%hr
+%h3
+  Popular courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+%hr
+%h3
+  Recent courses
+.card-columns
+  - @recent_courses.each do |course|
+    = render 'courses/course', course: course
+%hr
+%h3
+  Top Rated courses
+.card-columns
+  - @courses.each do |course|
+    = render 'courses/course', course: course
+
 
 
 
