@@ -1,7 +1,14 @@
-%h1
+%h1.display-4
   hello world
-  %h1
 
-%p
-  Find me in app/views/pages/home.html.haml
-```
+
+= link_to privacy_policy_path do
+
+  Privacy Policy 
+
+= link_to courses_path, class: "btn btn-primary" do
+  Course 
+
+
+
+
