@@ -14,6 +14,10 @@
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
           = link_to new_course_path, class: 'nav-link' do
             New Course
+
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
+          = link_to users_path, class: 'nav-link' do
+            Users
       .form-inline.my-2.my-lg-0
         = form_tag(courses_path, method: :get) do
           .input-group
@@ -25,15 +29,14 @@
 
       %ul.navbar-nav.mr-right
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
-          = link_to root_path, class: 'nav-link' do
-            Another link
+          = button_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link'
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             %b= current_user.email
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
             = link_to edit_user_registration_path, class: "dropdown-item" do
               %b Account settings
-            = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+            = button_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
               %b Sign out
     - else
       %ul.navbar-nav
