@@ -5,11 +5,10 @@
 
   .form-inputs
     = f.input :title
-    = f.label :description
     = f.rich_text_area :description
     = f.input :short_description
-    = f.input :language, collection: ['English', 'Arabic', 'French', 'Urdu']
-    = f.input :level, collection: ['Beginner', 'Intermediate', 'Advanced']
+    = f.input :language, collection: Course.languages
+    = f.input :level, collection: Course.levels
     = f.input :price
 
   .form-actions
