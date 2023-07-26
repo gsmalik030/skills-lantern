@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
     belongs_to :user
     has_many :lessons, dependent: :destroy
+    has_many :enrollments, dependent: :destroy
     validates :title, presence: true, length: { minimum: 5, maximum: 150 }
     validates :description, presence: true, length: { minimum: 5 }
     validates :short_description, presence: true, length: { minimum: 5, maximum: 150 }

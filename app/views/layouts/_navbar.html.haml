@@ -18,6 +18,9 @@
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
           = link_to users_path, class: 'nav-link' do
             Users
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(enrollments_path)}"}
+          = link_to enrollments_path, class: 'nav-link' do
+            Enrollments
         = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
           .input-group
             = f.search_field :title_cont, class: "form-control", placeholder: "Search by title"
