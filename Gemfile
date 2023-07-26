@@ -81,3 +81,4 @@ gem 'friendly_id', '~> 5.4.0'
 gem 'ransack'
 gem "rolify"
 gem "pundit", "~> 2.3"
+gem 'pagy'

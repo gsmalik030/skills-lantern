@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
     protect_from_forgery
 
     after_action :user_activity
+    include Pagy::Backend
 
-rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     before_action :set_global_variables, if: :user_signed_in?
     def set_global_variables

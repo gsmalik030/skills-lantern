@@ -1,3 +1,7 @@
+- content_for :title do
+  Skills Lantern
+  \|
+  All Courses
 %h1 
   Listing courses 
   = @courses.count
@@ -29,6 +33,10 @@
     .card-columns
       - @courses.each do |course|
         = render 'courses/course', course: course
+%br
+!= pagy_bootstrap_nav(@pagy)
+!= pagy_bootstrap_nav_js(@pagy)
+%br
 
 
 
