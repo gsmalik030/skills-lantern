@@ -1,0 +1,8 @@
+%h1 Edit User
+
+= @user.email
+= simple_form_for @user do |f|
+  = f.collection_check_boxes :role_ids, Role.all, :id, :name
+  = f.error :roles
+  = f.submit 'Update User', class: 'btn btn-primary'
+  = link_to 'Cancel', users_path, class: 'btn btn-secondary'

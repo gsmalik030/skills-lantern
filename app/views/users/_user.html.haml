@@ -1,6 +1,7 @@
 .card 
-  .card-header 
-    = user.email
+  .card-header
+    =link_to user.email, user
+    = user.online? ? 'Online' : 'Offline'
   .card-footer 
     signed up
     = time_ago_in_words(user.created_at)
@@ -28,3 +29,8 @@
       Yes
     - else
       No
+  .card-footer
+  - user.roles.each do |role|
+    = role.name
+  - if policy(user).edit?
+    = link_to "Edit Roles", edit_user_path(user)

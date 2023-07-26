@@ -10,7 +10,8 @@
   .card-footer
     = course.user.username
     = course.created_at.strftime("%B %d, %Y")
-  .card-footer
-    = link_to "Edit", edit_course_path(course), class: "btn btn-primary"
-    = link_to "Show", course, class: "btn btn-secondary"
-    = link_to "Delete", course, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+  -if current_user
+    - if policy(course).edit? && policy(course).destroy?
+      .card-footer
+        = link_to "Edit", edit_course_path(course), class: "btn btn-primary" 
+        = link_to "Delete", course, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" 
