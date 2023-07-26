@@ -8,3 +8,6 @@
   %b Description:
   = @course.description
 
+- @lessons.each do |lesson|
+  = render 'lessons/lesson', lesson: lesson
+

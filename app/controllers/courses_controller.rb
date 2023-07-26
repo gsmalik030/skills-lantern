@@ -20,6 +20,10 @@ class CoursesController < ApplicationController
     authorize @course
   end
 
+  def show
+    @lessons = @course.lessons
+  end
+
   # POST /courses or /courses.json
   def create
     @course = Course.new(course_params)
