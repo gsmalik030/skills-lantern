@@ -2,7 +2,11 @@
   .card-header
     = link_to course.title, course
   .card-body
-    = course.description
+    %small= course.short_description
+    %br
+    %strong= number_to_currency(course.price)
+    %br
+    = course.level
   .card-footer
     = course.user
     = course.created_at.strftime("%B %d, %Y")
