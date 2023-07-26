@@ -1,6 +1,6 @@
 .card
   .card-header
-    = link_to course.title, course
+    = link_to course.title, course_path(course)
   .card-body
     %small= course.short_description
     %br
@@ -10,7 +10,7 @@
   .card-footer
     = course.lessons.count
   .card-footer
-    = course.user.username
+    = link_to course.user.username, course.user
     = course.created_at.strftime("%B %d, %Y")
   -if current_user
     - if policy(course).edit? && policy(course).destroy?

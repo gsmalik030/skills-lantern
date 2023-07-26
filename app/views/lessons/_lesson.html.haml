@@ -1,9 +1,13 @@
 .card
   .card-header
-    = link_to lesson.title, lesson
-  .card-body
-    = lesson.content
-    = lesson.course
-  .card-footer
-    = link_to 'Edit', edit_lesson_path(lesson), class: 'btn btn-sm btn-warning'
-    = link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+    = link_to lesson.title, course_lesson_path(@course, lesson)
+
+  - if policy(lesson).show?
+    .card-body
+      = lesson.content
+      = lesson.course
+
+    - if current_user && policy(lesson.course).edit? && policy(lesson.course).destroy?
+      .card-footer
+        = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
+        = link_to 'Destroy', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
