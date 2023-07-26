@@ -4,7 +4,7 @@
   .card-body
     %small= course.short_description
     %br
-    %strong= number_to_currency(course.price)
+    = enrollment_button(course)
     %br
     = course.level
   .card-footer
