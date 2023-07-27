@@ -1,5 +1,5 @@
 module CoursesHelper
-  def enrollment_button(course)
+  def subscription_btn(course)
     if course.user == current_user
       link_to "You created this course. See Analytics", course_path(course), class: "btn btn-sm btn-success"
     elsif course.enrollments.where(user: current_user).any?
