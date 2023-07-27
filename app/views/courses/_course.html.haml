@@ -10,6 +10,7 @@
     = course.level
   .card-footer
     = course.lessons.count
+    = course.average_rating
   .card-footer
     = link_to course.user.username, course.user
     = course.created_at.strftime("%B %d, %Y")
