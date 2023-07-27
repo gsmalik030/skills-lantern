@@ -4,7 +4,8 @@
   .card-body
     %small= course.short_description
     %br
-    = enrollment_button(course)
+    = subscription_btn(course)
+    = review_btn(course)
     %br
     = course.level
   .card-footer

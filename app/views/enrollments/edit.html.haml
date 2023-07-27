@@ -1,7 +1,7 @@
-%h1 Editing enrollment
+%h1 Add Rating
 
 = render 'form'
 
-= link_to 'Show', @enrollment
+= link_to 'Show Review', @enrollment
 \|
-= link_to 'Back', enrollments_path
+= link_to 'Back to course', course_path(@enrollment.course)

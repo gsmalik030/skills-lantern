@@ -3,26 +3,34 @@
 %table
   %thead
     %tr
+      %th Id
+      %th Time
       %th Course
       %th User
       %th Rating
       %th Review
       %th Price
-      %th
-      %th
+      %th Reviewed at
       %th
 
   %tbody
     - @enrollments.each do |enrollment|
       %tr
-        %td= enrollment.course
-        %td= enrollment.user
-        %td= enrollment.rating
+        %td= enrollment.id
+        %td= enrollment.created_at.strftime('%B %d, %Y- %H:%M')
+        %td= link_to enrollment.course, course_path(enrollment.course)
+        %td= link_to enrollment.user, user_path(enrollment.user)
+        %td 
+          - if enrollment.rating
+            = enrollment.rating
         %td= enrollment.review
         %td= enrollment.price
-        %td= link_to 'Show', enrollment
-        %td= link_to 'Edit', edit_enrollment_path(enrollment)
-        %td= button_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+        %td
+          - if enrollment.updated_at 
+            = enrollment.updated_at.strftime('%B %d, %Y- %H:%M')
+        %td= link_to 'See Review', enrollment
+        %td= link_to 'Adde Review', edit_enrollment_path(enrollment)
+        %td= button_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
