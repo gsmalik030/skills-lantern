@@ -10,6 +10,7 @@ class Enrollment < ApplicationRecord
   validates :review, presence: true, if: -> { rating.present? }
 
   scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
+  scope :reviewed, -> { where.not(rating: [0, nil, ""], review: [0, nil, ""]) }
 
   def self.ransackable_attributes(auth_object = nil)
     ["course_id", "created_at", "id", "price", "rating", "review", "slug", "updated_at", "user_id"]

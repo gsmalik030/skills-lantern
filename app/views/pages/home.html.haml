@@ -15,7 +15,6 @@
 .card-group
   .card.card-body
     %h1
-      .fa.fa-graduation-cap
     = Course.count
     online courses
     .row
@@ -40,13 +39,19 @@
     .row
     Learn on your schedule
 
-%hr
+-if @enrolled_courses.any?
+  %hr
+  %h3
+    Continue Learning
+  .card-columns
+    - @enrolled_courses.each do |course|
+      = render 'courses/course', course: course
 
 %hr
 %h3
   Popular courses
 .card-columns
-  - @courses.each do |course|
+  - @popular_courses.each do |course|
     = render 'courses/course', course: course
 %hr
 %h3
@@ -58,8 +63,14 @@
 %h3
   Top Rated courses
 .card-columns
-  - @courses.each do |course|
+  - @top_rated_courses.each do |course|
     = render 'courses/course', course: course
+%hr
+%h3
+  What our students say
+.card-columns
+  - @best_reviews.each do |enrollment|
+    = render 'enrollments/enrollment', enrollment: enrollment
 
 
 
