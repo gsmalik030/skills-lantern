@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-    belongs_to :user
+    belongs_to :user, counter_cache: true
     has_many :lessons, dependent: :destroy
     has_many :enrollments, dependent: :destroy
     validates :title, presence: true, length: { minimum: 5, maximum: 150 }
