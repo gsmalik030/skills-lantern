@@ -8,8 +8,15 @@
     = review_btn(course)
     %br
     = course.level
+    %br
+    Enrollments:-
+    =course.enrollments_count
+    %br
   .card-footer
-    = course.lessons.count
+    Lessons:-
+    = course.lessons_count
+    %br
+    Average Rating:-
     = course.average_rating
   .card-footer
     = link_to course.user.username, course.user

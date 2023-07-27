@@ -2,6 +2,12 @@
   .card-header
     =link_to user.email, user
     = user.online? ? 'Online' : 'Offline'
+  .card-body
+    Courses Created
+    = user.courses_count
+    %br
+    Courses Enrolled
+    = user.enrollments_count
   .card-footer 
     signed up
     = time_ago_in_words(user.created_at)
