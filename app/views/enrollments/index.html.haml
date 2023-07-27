@@ -1,16 +1,26 @@
 %h1 Listing enrollments
 
+=search_form_for @q, url: @ransack_path do |f|
+  = f.search_field :review_cont, class: "form-control", placeholder: "Search by review"
+  = f.search_field :price_eq, class: "form-control", placeholder: "Search by price"
+  = f.search_field :rating_eq, class: "form-control", placeholder: "Search by rating"
+  = f.search_field :user_email_cont, class: "form-control", placeholder: "Search by user email"
+  = f.search_field :course_title_cont, class: "form-control", placeholder: "Search by course"
+  = f.submit "Search", class: "btn btn-primary"
+= link_to @ransack_path, class: "btn btn-secondary" do
+  Cancel
+
 %table
   %thead
     %tr
       %th Id
-      %th Time
-      %th Course
-      %th User
+      %th Enrolled
+      %th= sort_link(@q, :course_title)
+      %th= sort_link(@q, :user_email)
       %th Rating
       %th Review
-      %th Price
-      %th Reviewed at
+      %th= sort_link(@q, :price)
+      %th= sort_link(@q, :updated_at)
       %th
 
   %tbody
@@ -35,3 +45,8 @@
 %br
 
 = link_to 'New Enrollment', new_enrollment_path
+
+%br
+!= pagy_bootstrap_nav(@pagy)
+!= pagy_bootstrap_nav_js(@pagy)
+%br

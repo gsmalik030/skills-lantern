@@ -4,7 +4,10 @@ class EnrollmentsController < ApplicationController
 
   # GET /enrollments or /enrollments.json
   def index
-    @enrollments = Enrollment.all
+    @ransack_path = enrollments_path
+    @q = Enrollment.ransack(params[:q])
+    @pagy, @enrollments = pagy(@q.result.includes(:user, :course))
+
     authorize @enrollments
   end
 
@@ -20,6 +23,13 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments/1/edit
   def edit
     authorize @enrollment
+  end
+
+  def students_enrolled
+    @ransack_path = students_enrolled_enrollments_path
+    @q = Enrollment.joins(:course).where(courses: {user: current_user}).ransack(params[:q])
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
+    render 'index'
   end
 
   def create
@@ -61,7 +71,7 @@ class EnrollmentsController < ApplicationController
       @course = Course.friendly.find(params[:course_id])
     end
     def set_enrollment
-      @enrollment = Enrollment.find(params[:id])
+      @enrollment = Enrollment.friendly.find(params[:id])
     end
 
     def enrollment_params
