@@ -1,0 +1,52 @@
+%h1 Listing enrollments
+
+=search_form_for @q, url: @ransack_path do |f|
+  = f.search_field :review_cont, class: "form-control", placeholder: "Search by review"
+  = f.search_field :price_eq, class: "form-control", placeholder: "Search by price"
+  = f.search_field :rating_eq, class: "form-control", placeholder: "Search by rating"
+  = f.search_field :user_email_cont, class: "form-control", placeholder: "Search by user email"
+  = f.search_field :course_title_cont, class: "form-control", placeholder: "Search by course"
+  = f.submit "Search", class: "btn btn-primary"
+= link_to @ransack_path, class: "btn btn-secondary" do
+  Cancel
+
+%table
+  %thead
+    %tr
+      %th Id
+      %th Enrolled
+      %th= sort_link(@q, :course_title)
+      %th= sort_link(@q, :user_email)
+      %th Rating
+      %th Review
+      %th= sort_link(@q, :price)
+      %th= sort_link(@q, :updated_at)
+      %th
+
+  %tbody
+    - @enrollments.each do |enrollment|
+      %tr
+        %td= enrollment.id
+        %td= enrollment.created_at.strftime('%B %d, %Y- %H:%M')
+        %td= link_to enrollment.course, course_path(enrollment.course)
+        %td= link_to enrollment.user, user_path(enrollment.user)
+        %td 
+          - if enrollment.rating
+            = enrollment.rating
+        %td= enrollment.review
+        %td= enrollment.price
+        %td
+          - if enrollment.updated_at 
+            = enrollment.updated_at.strftime('%B %d, %Y- %H:%M')
+        %td= link_to 'See Review', enrollment
+        %td= link_to 'Adde Review', edit_enrollment_path(enrollment)
+        %td= button_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Enrollment', new_enrollment_path
+
+%br
+!= pagy_bootstrap_nav(@pagy)
+!= pagy_bootstrap_nav_js(@pagy)
+%br

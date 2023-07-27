@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
     belongs_to :user
     has_many :lessons, dependent: :destroy
+    has_many :enrollments, dependent: :destroy
     validates :title, presence: true, length: { minimum: 5, maximum: 150 }
     validates :description, presence: true, length: { minimum: 5 }
     validates :short_description, presence: true, length: { minimum: 5, maximum: 150 }
@@ -15,6 +16,10 @@ class Course < ApplicationRecord
     def to_s
         title
     end
+
+    def enrolled(user)
+        self.enrollments.where(user_id: [user.id], course_id: [self.id]).empty?
+      end
 
     def self.ransackable_attributes(auth_object = nil)
         ["created_at", "description", "id", "language", "level", "price", "short_description", "slug", "title", "updated_at", "user_id"]

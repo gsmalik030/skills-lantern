@@ -3,19 +3,8 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "trix"
 import "@rails/actiontext"
-
-  // This is a manifest file that'll be compiled into application.js,
-  // which will include all the files listed below.
-  //
-  // Any JavaScript/Coffee file within this directory, lib/assets/javascripts,
-  // or any plugin's vendor/assets/javascripts directory can be referenced here
-  // using a relative path.
-  //
-  //= require rails-ujs
-  //= require activestorage
-  //= require turbolinks
-  //= require fontawesome/all
-  //= require_tree .
-
+import "popper"
+import "bootstrap"
+import "@fortawesome/fontawesome-free/js/all"
   FontAwesome.config.mutateApproach = 'sync'
 
