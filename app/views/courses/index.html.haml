@@ -2,6 +2,7 @@
   - content_for :title do
     Skills Lantern \| All Courses
   %h1
+    = action_name.humanize
     Listing courses
     = @courses.count
 
