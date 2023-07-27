@@ -5,6 +5,7 @@ class EnrollmentsController < ApplicationController
   # GET /enrollments or /enrollments.json
   def index
     @enrollments = Enrollment.all
+    authorize @enrollments
   end
 
   # GET /enrollments/1 or /enrollments/1.json
@@ -18,6 +19,7 @@ class EnrollmentsController < ApplicationController
 
   # GET /enrollments/1/edit
   def edit
+    authorize @enrollment
   end
 
   def create
@@ -31,6 +33,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
+    authorize @enrollment
     respond_to do |format|
       if @enrollment.update(enrollment_params)
         format.html { redirect_to enrollment_url(@enrollment), notice: "Enrollment was successfully updated." }
@@ -43,6 +46,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def destroy
+    authorize @enrollment
     @enrollment.destroy
 
     respond_to do |format|

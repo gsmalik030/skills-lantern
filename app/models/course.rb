@@ -17,9 +17,9 @@ class Course < ApplicationRecord
         title
     end
 
-    def bought(user)
+    def enrolled(user)
         self.enrollments.where(user_id: [user.id], course_id: [self.id]).empty?
-    end
+      end
 
     def self.ransackable_attributes(auth_object = nil)
         ["created_at", "description", "id", "language", "level", "price", "short_description", "slug", "title", "updated_at", "user_id"]
