@@ -14,11 +14,13 @@
         -if current_user && current_user.has_role?(:student)
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_enrollment_path)}"}
             = link_to courses_enrolled_courses_path do
-              courses_enrolled Courses
+              Courses Enrolled
+              = current_user.enrollments.count
         -if current_user && current_user.has_role?(:student)
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_enrollment_path)}"}
             = link_to pending_review_courses_path do
               Pending Review
+              = current_user.enrollments.pending_review.count
         -if current_user && current_user.has_role?(:teacher)
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
             = link_to new_course_path, class: 'nav-link' do
@@ -27,6 +29,7 @@
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
             = link_to created_courses_path do
               My courses
+              current_user.courses.count
         -if current_user && current_user.has_role?(:teacher)
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
             = link_to students_enrolled_enrollments_path do
