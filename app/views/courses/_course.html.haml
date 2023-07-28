@@ -21,11 +21,12 @@
     = link_to course.user.username, course.user
     = course.created_at.strftime("%B %d, %Y")
   -if current_user
-    - if policy(course).edit? && policy(course).destroy?
+    - if policy(course).edit?
       .card-footer
         = link_to "Edit", edit_course_path(course), class: "btn btn-primary" 
+      - if policy(course).destroy?
         = button_to "Delete", course, method: :delete, class: "btn btn-danger" 
-    - if policy(course).destroy?
+    - if policy(course).edit?
       -if course.is_published?
         Published
       -else

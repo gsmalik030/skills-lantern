@@ -10,7 +10,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
     current_user.completed_lesson(@lesson)
-    @lessons = @course.lessons
+    @lessons = @course.lessons.rank(:row_order)
   end
 
   # GET /lessons/new
@@ -47,7 +47,7 @@ class LessonsController < ApplicationController
     authorize @lesson
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit, status: :unprocessable_entity }

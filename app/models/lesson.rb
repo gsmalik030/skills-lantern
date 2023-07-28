@@ -8,12 +8,23 @@ class Lesson < ApplicationRecord
 
   has_rich_text :content
 
+  include RankedModel
+  ranks :row_order, with_same: :course_id
+
   extend FriendlyId
   friendly_id :title, use: :slugged
 
   def to_s
     title
   end 
+
+  def prev_lesson
+    course.lessons.where("row_order < ?", row_order).last
+  end
+
+  def next_lesson
+    course.lessons.where("row_order > ?", row_order).first
+  end
 
   def completed(user)
     self.user_lessons.where(user: user).present?

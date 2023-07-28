@@ -44,6 +44,7 @@
   .card-columns
     - @enrolled_courses.each do |course|
       = render 'courses/course', course: course
+  = link_to 'View All', courses_enrolled_courses_path, class: 'btn btn-primary'
 
 %hr
 %h3
@@ -51,18 +52,23 @@
 .card-columns
   - @popular_courses.each do |course|
     = render 'courses/course', course: course
+= link_to 'View All', courses_path(courses_search: {s: 'enrollments_count desc'}), class: 'btn btn-primary'
 %hr
 %h3
   Recent courses
 .card-columns
   - @recent_courses.each do |course|
     = render 'courses/course', course: course
+= link_to 'View All', courses_path(courses_search: {s: 'created_at desc'}), class: 'btn btn-primary'
+
 %hr
 %h3
   Top Rated courses
 .card-columns
   - @top_rated_courses.each do |course|
     = render 'courses/course', course: course
+= link_to 'View All', courses_path(courses_search: {s: 'average_rating desc'}), class: 'btn btn-primary'
+
 %hr
 %h3
   What our students say

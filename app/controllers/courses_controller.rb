@@ -1,13 +1,17 @@
 class CoursesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
   before_action :set_course, only: %i[ show edit update destroy approve unapprove]
   
   def index
     @ransack_path = courses_path
-    @ransack_courses = Course.Is_published.is_approved.ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses = Course.is_published.is_approved.ransack(params[:courses_search], search_key: :courses_search)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user).order(created_at: :desc))
   end
 
   def show
+    authorize @course
+    @lessons = @course.lessons.rank(:row_order)
+    @enrollments_with_review = @course.enrollments.reviewed
   end
 
   # GET /courses/new
@@ -19,12 +23,6 @@ class CoursesController < ApplicationController
   # GET /courses/1/edit
   def edit
     authorize @course
-  end
-
-  def show
-    authorize @course
-    @lessons = @course.lessons
-    @enrollments_with_review = @course.enrollments.reviewed
   end
 
   # POST /courses or /courses.json
