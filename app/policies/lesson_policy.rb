@@ -6,17 +6,17 @@ class LessonPolicy < ApplicationPolicy
   end
 
   def show?
-    @user.has_role?(:admin) || @record.course.user_id == @user.id || @record.course.enrolled(@user) == false
+    @user.present? && (@user.has_role?(:admin) || @record.course.user_id == @user.id || @record.course.enrolled(@user) == false)
   end
 
   def edit?
-    @record.course.user_id == @user.id
+    @user.present? && @record.course.user_id == @user.id
   end
   def update?
-    @record.course.user_id == @user.id
+    @user.present? && @record.course.user_id == @user.id
   end
   def new?
-    #@user.has_role?(:teacher)
+    @user.has_role?(:teacher)
   end
   def create?
     @record.course.user_id == @user.id
