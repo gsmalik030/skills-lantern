@@ -15,3 +15,6 @@
     .card-footer
       = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
       = button_to 'Destroy', course_lesson_path(@course, lesson), method: :delete, class: 'btn btn-sm btn-danger'
+    .card-footer
+      = link_to 'Previous', course_lesson_path(@course, lesson.prev_lesson), class: 'btn btn-sm btn-primary' if lesson.prev_lesson
+      = link_to 'Next', course_lesson_path(@course, lesson.next_lesson), class: 'btn btn-sm btn-primary' if lesson.next_lesson

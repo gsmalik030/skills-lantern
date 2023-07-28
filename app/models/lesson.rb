@@ -18,6 +18,14 @@ class Lesson < ApplicationRecord
     title
   end 
 
+  def prev_lesson
+    course.lessons.where("row_order < ?", row_order).last
+  end
+
+  def next_lesson
+    course.lessons.where("row_order > ?", row_order).first
+  end
+
   def completed(user)
     self.user_lessons.where(user: user).present?
   end
