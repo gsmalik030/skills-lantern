@@ -15,10 +15,11 @@
     %tr
       %th Id
       %th Enrolled
-      %th= sort_link(@q, :course_title)
-      %th= sort_link(@q, :user_email)
+      %th= sort_link(@q, :course_title, 'Course')
+      %th= sort_link(@q, :user_email, 'User')
       %th Rating
       %th Review
+      %th Progress
       %th= sort_link(@q, :price)
       %th= sort_link(@q, :updated_at)
       %th
@@ -34,13 +35,16 @@
           - if enrollment.rating
             = enrollment.rating
         %td= enrollment.review
+        %td= number_to_percentage(enrollment.course.progress_in_percentage(enrollment.user), precision: 0)
         %td= enrollment.price
         %td
           - if enrollment.updated_at 
             = enrollment.updated_at.strftime('%B %d, %Y- %H:%M')
         %td= link_to 'See Review', enrollment
-        %td= link_to 'Adde Review', edit_enrollment_path(enrollment)
-        %td= button_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+        - if policy(enrollment).edit?
+          %td= link_to 'Add Review', edit_enrollment_path(enrollment)
+        - if policy(enrollment).destroy?
+          %td= button_to 'Delete', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 

@@ -1,6 +1,7 @@
 class Course < ApplicationRecord
     belongs_to :user, counter_cache: true
     has_many :lessons, dependent: :destroy
+    has_many :user_lessons, through: :lessons
     has_many :enrollments, dependent: :destroy
     validates :title, presence: true, length: { minimum: 5, maximum: 150 }, uniqueness: true
     validates :description, presence: true, length: { minimum: 5 }
@@ -15,6 +16,12 @@ class Course < ApplicationRecord
 
     def to_s
         title
+    end
+
+    def progress_in_percentage(user)
+        unless self.lessons_count.zero?
+          (user_lessons.where(user: user).count / lessons.count).to_f * 100
+        end
     end
 
     def enrolled(user)
