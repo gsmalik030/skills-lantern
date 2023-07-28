@@ -4,14 +4,14 @@
       Completed
     - else
       Not Completed
-    = link_to lesson.title, course_lesson_path(@course, lesson)
+  = lesson.row_order_rank + 1
+  = link_to lesson.title, course_lesson_path(@course, lesson)
 
   - if policy(lesson).show?
     .card-body
       = lesson.content
       = lesson.course
-
-    - if current_user && policy(lesson.course).edit? && policy(lesson.course).destroy?
-      .card-footer
-        = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
-        = button_to 'Destroy', course_lesson_path(@course, lesson),data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-danger'
+  - if current_user && policy(lesson.course).edit? && policy(lesson.course).destroy?
+    .card-footer
+      = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
+      = button_to 'Destroy', course_lesson_path(@course, lesson), method: :delete, class: 'btn btn-sm btn-danger'

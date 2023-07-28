@@ -9,6 +9,9 @@ class CoursesController < ApplicationController
   end
 
   def show
+    authorize @course
+    @lessons = @course.lessons.rank(:row_order)
+    @enrollments_with_review = @course.enrollments.reviewed
   end
 
   # GET /courses/new
@@ -20,12 +23,6 @@ class CoursesController < ApplicationController
   # GET /courses/1/edit
   def edit
     authorize @course
-  end
-
-  def show
-    authorize @course
-    @lessons = @course.lessons
-    @enrollments_with_review = @course.enrollments.reviewed
   end
 
   # POST /courses or /courses.json

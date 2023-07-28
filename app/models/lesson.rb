@@ -8,6 +8,9 @@ class Lesson < ApplicationRecord
 
   has_rich_text :content
 
+  include RankedModel
+  ranks :row_order, with_same: :course_id
+
   extend FriendlyId
   friendly_id :title, use: :slugged
 
