@@ -1,18 +1,38 @@
+- content_for :title do
+  Corsego 
+  \/
+  Course
+  = @course.title
+  \/
+  Lesson
+  = @lesson.title
+
+
 = link_to 'Courses', courses_path
 \/
-= link_to @lesson.course.title, course_path(@lesson.course)
+= link_to course_path(@lesson.course) do
+  = @lesson.course.title
 \/
-= link_to @lesson.title, course_lesson_path(@course, @lesson)
-%p
-  %b Title:
+= link_to course_lesson_path(@course, @lesson) do
   = @lesson.title
 %p
-  %b Content:
-  = @lesson.content
-%p
-  %b Course:
-  = @lesson.course
 
-= link_to 'Edit', edit_course_lesson_path(@lesson.course, @lesson), class: 'btn btn-primary'
-\|
-= link_to 'Back', course_path(@lesson.course)
+.row
+  .col-lg-8
+    = render 'lessons/lesson', lesson: @lesson
+    %p
+  .col-lg-4
+    %ul.list-group
+      %li.list-group-item
+        = link_to course_path(@lesson.course) do
+          = @lesson.course.title
+        .row
+        = number_to_percentage(@course.progress_in_percentage(current_user), precision: 0)
+
+      - @lessons.each do |lesson|
+        - if @lesson.present? && lesson == @lesson
+          %li.list-group-item.list-group-item-success
+            = render 'lessons/lesson', lesson: lesson
+        - else
+          %li.list-group-item
+            = render 'lessons/lesson', lesson: lesson
