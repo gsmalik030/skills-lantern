@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   
-  has_many :courses
-  has_many :enrollments
-  has_many :user_lessons
+  has_many :courses, dependent: :nullify
+  has_many :enrollments, dependent: :nullify
+  has_many :user_lessons, dependent: :nullify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
