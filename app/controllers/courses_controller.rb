@@ -1,9 +1,9 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[ show edit update destroy approved unapproved]
   
   def index
     @ransack_path = courses_path
-    @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses = Course.Is_published.ransack(params[:courses_search], search_key: :courses_search)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user).order(created_at: :desc))
   end
 
@@ -99,6 +99,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def course_params
-      params.require(:course).permit(:title, :description, :short_description, :language, :level, :price)
+    params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :is_published)
     end
 end
