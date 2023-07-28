@@ -22,6 +22,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    authorize @course
     @lessons = @course.lessons
     @enrollments_with_review = @course.enrollments.reviewed
   end
