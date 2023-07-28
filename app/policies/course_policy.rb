@@ -7,11 +7,23 @@ class CoursePolicy < ApplicationPolicy
 
   
   def edit?
-    @user.has_role?:admin || @record.user = @user
+    @record.user == @user
+  end
+
+  def show?
+    @record.is_published? && @record.is_approved || @user.present? && @user.has_role?(:admin) || @record.user == @user || @record.enrolled(@user)
+  end
+
+  def approve?
+    @user.has_role?:admin
+  end
+
+  def unapprove?
+    @user.has_role?:admin
   end
 
   def update?
-    @user.has_role?:admin || @record.user = @user
+    @record.user == @user
   end
 
   def new?
@@ -23,6 +35,6 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.has_role?:admin || @record.user = @user
+    @user.has_role?:admin || @record.user == @user
   end
 end

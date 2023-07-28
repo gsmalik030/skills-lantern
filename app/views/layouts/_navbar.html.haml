@@ -39,6 +39,11 @@
             = link_to users_path, class: 'nav-link' do
               Users
         -if current_user && current_user.has_role?(:admin)
+          %li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
+            = link_to unapproved_courses_path, class: 'nav-link' do
+              UnApproved Courses
+              = Course.is_not_approved.count
+        -if current_user && current_user.has_role?(:admin)
           %li.nav-item{class: "#{'active font-weight-bold' if current_page?(enrollments_path)}"}
             = link_to enrollments_path, class: 'nav-link' do
               Enrollments

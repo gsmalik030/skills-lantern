@@ -14,6 +14,11 @@ class Course < ApplicationRecord
     extend FriendlyId
     friendly_id :title, use: :slugged
 
+    scope :Is_published, -> { where(is_published: true) }
+    scope :is_not_published, -> { where(is_published: false) }
+    scope :is_approved, -> { where(is_approved: true) }
+    scope :is_not_approved, -> { where(is_approved: false) }
+
     def to_s
         title
     end
