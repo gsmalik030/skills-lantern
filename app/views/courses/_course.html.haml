@@ -30,3 +30,12 @@
         Published
       -else
         Unpublished
+      -if course.is_approved?
+        Approved
+        - if policy(course).approve?
+          = button_to 'Un Approved', unapprove_course_path(course), method: :patch, class: "btn btn-primary"
+
+      -else
+        Un Approved
+        - if policy(course).unapprove?
+          = button_to 'Approved', approve_course_path(course), method: :patch, class: "btn btn-primary"

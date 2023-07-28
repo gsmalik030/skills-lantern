@@ -1,9 +1,9 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy approved unapproved]
+  before_action :set_course, only: %i[ show edit update destroy approve unapprove]
   
   def index
     @ransack_path = courses_path
-    @ransack_courses = Course.Is_published.ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses = Course.Is_published.is_approved.ransack(params[:courses_search], search_key: :courses_search)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user).order(created_at: :desc))
   end
 
@@ -91,8 +91,26 @@ end
     render 'index'
   end
 
+  def unapproved
+    @ransack_path = unapproved_courses_path
+    @ransack_courses = Course.is_not_approved.ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render 'index'
+  end
+
+  def approve
+    authorize @course, :approve?
+    @course.update(is_approved: true)
+    redirect_to @course, notice: "Course was successfully approved."
+  end
+
+  def unapprove
+    authorize @course, :unapprove?
+    @course.update(is_approved: false)
+    redirect_to @course, notice: "Course was successfully unapproved."
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.friendly.find(params[:id])
     end
