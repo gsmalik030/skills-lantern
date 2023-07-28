@@ -14,8 +14,15 @@
 
   = link_to 'Add Lesson', new_course_lesson_path(@course, @lesson), class: 'btn btn-primary'
 
-- @lessons.each do |lesson|
-  = render 'lessons/lesson', lesson: lesson
+%h4
+  .fa.fa-tasks
+  = pluralize(@course.lessons_count, 'lesson')
+  .float-right
+    = number_to_percentage(@course.progress_in_percentage(current_user), precision: 0)
+%ul.list-group
+  - @lessons.each do |lesson|
+    %li.list-group-item
+      = render 'lessons/lesson', lesson: lesson
 %p
   Reviews:
   - @enrollments_with_review.each do |enrollment|
