@@ -2,6 +2,7 @@ class User < ApplicationRecord
   
   has_many :courses
   has_many :enrollments
+  has_many :user_lessons
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -46,12 +47,16 @@ class User < ApplicationRecord
       self.enrollments.create(course: course, price: course.price)
     end
 
+    def completed_lesson(lesson)
+      unless self.user_lessons.where(lesson: lesson).any?
+      self.user_lessons.create(lesson: lesson)
+      end
+    end
+
     private
     def must_have_role
       unless roles.any?
         errors.add(:roles, "must have at least one role")
       end
     end
-
-
 end

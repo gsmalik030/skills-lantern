@@ -1,5 +1,9 @@
 .card
   .card-header
+    - if lesson.completed(current_user)
+      Completed
+    - else
+      Not Completed
     = link_to lesson.title, course_lesson_path(@course, lesson)
 
   - if policy(lesson).show?
