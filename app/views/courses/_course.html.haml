@@ -13,8 +13,7 @@
     =course.enrollments_count
     %br
   .card-footer
-    Lessons:-
-    = course.lessons_count
+    = pluralize(course.lessons_count, "Lesson")
     %br
     Average Rating:-
     = course.average_rating

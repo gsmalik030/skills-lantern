@@ -3,9 +3,7 @@
     Skills Lantern \| All Courses
   %h1
     = action_name.humanize
-    Listing courses
-    = @courses.count
-
+    = pluralize(@courses_count, "Course")
   .row
     .col-md-2
       = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
