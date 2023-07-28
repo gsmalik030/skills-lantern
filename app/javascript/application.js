@@ -4,6 +4,8 @@ import "controllers"
 import "trix"
 import "@rails/actiontext"
 import "popper"
+import "chartkick"
+import "Chart.bundle"
 import "bootstrap"
 import "@fortawesome/fontawesome-free/js/all"
   FontAwesome.config.mutateApproach = 'sync'
