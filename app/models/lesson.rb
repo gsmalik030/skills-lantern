@@ -1,6 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
-  has_many :user_lessons
+  has_many :user_lessons, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 5, maximum: 150 }
   validates :content, presence: true, length: { minimum: 5}
