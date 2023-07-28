@@ -8,7 +8,9 @@ class Course < ApplicationRecord
     validates :short_description, presence: true, length: { minimum: 5, maximum: 150 }
     validates :language, :level, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 0 }
-    
+    has_one_attached :avatar
+    validates :avatar, attached: true, content_type: ['image/png', 'image/jpeg', 'image/jpg'], size: { between: 1.kilobyte..500.megabytes , message: 'Size should be less than 500kb' }
+
     has_rich_text :description
 
     extend FriendlyId

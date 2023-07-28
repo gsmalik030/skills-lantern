@@ -66,8 +66,8 @@ class CoursesController < ApplicationController
       end
     else
       redirect_to courses_url, alert: "Course cannot be destroyed."
+    end
   end
-end
 
   def courses_enrolled
     @ransack_path = courses_enrolled_courses_path
@@ -116,6 +116,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def course_params
-    params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :is_published)
+    params.require(:course).permit(:title, :description, :short_description, :language, :level, :price, :is_published, :avatar)
     end
 end

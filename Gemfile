@@ -27,6 +27,7 @@ gem "rolify"
 gem "pundit", "~> 2.3"
 gem 'pagy'
 gem 'ranked-model'
+gem 'active_storage_validations'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
