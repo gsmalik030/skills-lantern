@@ -16,6 +16,10 @@
 
 - @lessons.each do |lesson|
   = render 'lessons/lesson', lesson: lesson
+%p
+  Reviews:
+  - @enrollments_with_review.each do |enrollment|
+    = render 'enrollments/enrollment', enrollment: enrollment
 
 
 
