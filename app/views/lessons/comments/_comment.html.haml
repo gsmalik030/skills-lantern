@@ -1,0 +1,7 @@
+.card 
+  .card-header
+    = comment.user
+  .card-body
+    = comment.content
+    = comment.created_at
+= link_to 'Back', course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-primary'

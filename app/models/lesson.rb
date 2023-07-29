@@ -1,10 +1,12 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
   has_many :user_lessons, dependent: :destroy
+  has_many :comments, dependent: :nullify
 
   validates :title, presence: true, length: { minimum: 5, maximum: 150 }, uniqueness: { scope: :course_id}
   validates :content, presence: true, length: { minimum: 5}
   validates :course, presence: true
+
 
   def video_attached?
     self.video.present?

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       patch :approve, :unapprove
     end
     resources :lessons do
+      resources :comments
       member do
         delete :video_delete
       end

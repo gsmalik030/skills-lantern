@@ -35,3 +35,9 @@
         - else
           %li.list-group-item
             = render 'lessons/lesson', lesson: lesson
+  Comments:-
+  - @lesson.comments.each do |comment|
+    = render 'lessons/comments/comment', comment: comment
+New %Comments: 
+= render 'lessons/comments/form'
+
