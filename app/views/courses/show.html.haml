@@ -8,6 +8,9 @@
 %p
   %b Title:
   = @course.title
+  - if @course.avatar.attached?
+    = image_tag @course.avatar, width: "100px" 
+    = @course.avatar.content_type
 %p
   %b Description:
   = @course.description
@@ -27,6 +30,7 @@
   Reviews:
   - @enrollments_with_review.each do |enrollment|
     = render 'enrollments/enrollment', enrollment: enrollment
+
 
 
 

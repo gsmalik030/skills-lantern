@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: %i[ show edit update destroy ]
+  before_action :set_lesson, only: %i[ show edit update destroy video_delete ]
 
   # GET /lessons or /lessons.json
   def index
@@ -66,6 +66,13 @@ class LessonsController < ApplicationController
     end
   end
 
+  def video_delete
+    authorize @lesson, :edit?
+    @lesson.video.purge
+    @lesson.thumbnail.purge
+    redirect_to course_lesson_path(@course, @lesson), notice: "Video was successfully destroyed." if @lesson.video.purge
+  end
+
   private
   def set_lesson
     @course = Course.friendly.find(params[:course_id])
@@ -73,6 +80,6 @@ class LessonsController < ApplicationController
   end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content)
+      params.require(:lesson).permit(:title, :content, :video, :thumbnail )
     end
 end
