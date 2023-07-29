@@ -7,8 +7,7 @@
     = f.input :title
     - if @course.avatar.attached?
       = image_tag @course.avatar, width: "50px"
-    = f.file_field :avatar
-    %small= f.error :avatar, class: 'text-danger'
+    = f.input :avatar
     .row
     = f.rich_text_area :description
     %small= f.error :description, class: 'text-danger'

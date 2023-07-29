@@ -1,6 +1,6 @@
 class Course < ApplicationRecord
     belongs_to :user, counter_cache: true
-    has_many :lessons, dependent: :destroy
+    has_many :lessons, class_name: 'Lesson', dependent: :destroy
     has_many :user_lessons, through: :lessons
     has_many :enrollments, dependent: :restrict_with_error
     validates :title, presence: true, length: { minimum: 5, maximum: 150 }, uniqueness: true
@@ -9,7 +9,7 @@ class Course < ApplicationRecord
     validates :language, :level, presence: true
     validates :price, numericality: { greater_than_or_equal_to: 0 }
     has_one_attached :avatar
-    validates :avatar, attached: true, content_type: ['image/png', 'image/jpeg', 'image/jpg'], size: { between: 1.kilobyte..500.megabytes , message: 'Size should be less than 500kb' }
+    validates :avatar, presence: true, content_type: ['image/png', 'image/jpeg', 'image/jpg'], size: { between: 1.kilobyte..500.kilobytes , message: 'Size should be less than 500kb' }
 
     has_rich_text :description
 

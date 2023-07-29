@@ -8,9 +8,14 @@ Rails.application.routes.draw do
     member do
       patch :approve, :unapprove
     end
-    resources :lessons
+    resources :lessons do
+      member do
+        delete :video_delete
+      end
+    end
     resources :enrollments, only: [:new, :create]
   end
+  resources :youtube, only: :show
   resources :users, only: [:index, :edit, :update, :show]
   get 'privacy_policy', to: 'pages#privacy_policy'
   root 'pages#home'
