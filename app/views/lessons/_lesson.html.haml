@@ -1,24 +1,30 @@
-.card
-  .card-header
-    - if lesson.completed(current_user)
-      Completed
-    - else
-      Not Completed
-  = lesson.row_order_rank + 1
-  = link_to lesson.title, course_lesson_path(@course, lesson)
-
+- if current_user
   - if policy(lesson).show?
-    .card-body
-      - if lesson.video.attached?
-        %video{ controls: 'controls', width: '100%', height: 'auto', poster: url_for(lesson.thumbnail) }
-          %source{ src: rails_blob_url(lesson.video), type: 'video/mp4' }
-        - if policy(lesson).edit?
-          = button_to 'Removed video', video_delete_course_lesson_path(@course, lesson), method: :delete, class: 'btn btn-sm btn-danger'
-  
-      = lesson.content
-      = lesson.course
-      
-  - if current_user && policy(lesson.course).edit? && policy(lesson.course).destroy?
+    .card
+      .card-header
+        - if lesson.completed(current_user)
+          Completed
+        - else
+          Not Completed
+      = lesson.row_order_rank + 1
+      = link_to lesson.title, course_lesson_path(@course, lesson) 
+      .card-body
+        - if lesson.video.attached?
+          %video{ controls: 'controls', width: '100%', height: 'auto', poster: url_for(lesson.thumbnail) }
+            %source{ src: rails_blob_url(lesson.video), type: 'video/mp4' }
+          - if policy(lesson).edit?
+            = button_to 'Removed video', video_delete_course_lesson_path(@course, lesson), method: :delete, class: 'btn btn-sm btn-danger'
+
+        = lesson.content
+        = lesson.course
+
+  - if current_user && policy(lesson.course).edit? 
+    .card-footer
+      Impression:
+      = lesson.user_lessons.map(&:impressions).sum
+      %br
+      Views
+      = lesson.user_lessons_count
     .card-footer
       = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
       = button_to 'Destroy', course_lesson_path(@course, lesson), method: :delete, class: 'btn btn-sm btn-danger'

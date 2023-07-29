@@ -11,12 +11,15 @@ class LessonsController < ApplicationController
     authorize @lesson
     current_user.completed_lesson(@lesson)
     @lessons = @course.lessons.rank(:row_order)
+    @comment= Comment.new
+    @comments = @lesson.comments.order(created_at: :desc)
   end
 
   # GET /lessons/new
   def new
     @lesson = Lesson.new
     @course = Course.friendly.find(params[:course_id])
+
   end
 
   # GET /lessons/1/edit
@@ -80,6 +83,6 @@ class LessonsController < ApplicationController
   end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content, :video, :thumbnail )
+      params.require(:lesson).permit(:title, :content, :video, :thumbnail, :row_order_rank )
     end
 end
