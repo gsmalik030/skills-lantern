@@ -12,7 +12,11 @@
     signed up
     = time_ago_in_words(user.created_at)
     ago
-  .card-footer 
+  .card-footer
+    .row 
+      Comments
+      = user.comments_count
+
     .row
     = 'sign_in_count'.humanize
     = user.sign_in_count

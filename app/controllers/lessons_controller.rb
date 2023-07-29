@@ -83,6 +83,6 @@ class LessonsController < ApplicationController
   end
 
     def lesson_params
-      params.require(:lesson).permit(:title, :content, :video, :thumbnail )
+      params.require(:lesson).permit(:title, :content, :video, :thumbnail, :row_order_rank )
     end
 end
