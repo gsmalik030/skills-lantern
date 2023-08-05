@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     before_action :authenticate_user!
-    include Pundit
+    include Pundit::Authorization
     protect_from_forgery
 
     after_action :user_activity, if: :user_signed_in?
