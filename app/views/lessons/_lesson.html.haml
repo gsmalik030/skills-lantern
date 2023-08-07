@@ -6,7 +6,7 @@
           Completed
         - else
           Not Completed
-      = lesson.row_order_rank + 1
+      -# = lesson.row_order_rank + 1
       = link_to lesson.title, course_lesson_path(@course, lesson) 
       .card-body
         - if lesson.video.attached?

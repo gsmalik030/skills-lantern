@@ -1,6 +1,6 @@
-@import "font-awesome";
+/* @import "font-awesome"; */
 @import 'actiontext.css';
-@import "trix/dist/trix";
+/* @import "trix/dist/trix"; */
 @import "bootstrap";
 .trix-content .attachment-gallery > action-text-attachment,
 .trix-content .attachment-gallery > .attachment {
