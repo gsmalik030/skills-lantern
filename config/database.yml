@@ -87,5 +87,8 @@ production:
   <<: *default
   database: skills_lantern_production
   url: <%= ENV['DATABASE_URL'] %>
-  username: wrqzmosi
+  username: skills_lantern_production_user
   password: <%= ENV["SKILLS_LANTERN_DATABASE_PASSWORD"] %>
+
+
+
