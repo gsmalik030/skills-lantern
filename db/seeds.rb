@@ -1,4 +1,4 @@
-User.create(email: 'test@test.com', password: 'password', password_confirmation: 'password')
+User.create(email: 'admin@test.com', password: 'password', password_confirmation: 'password', role: 'admin')
 
 60.times do
     Course.create(
